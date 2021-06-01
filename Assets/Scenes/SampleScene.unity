@@ -349,9 +349,8 @@ MonoBehaviour:
   width: 30
   depth: 30
   wall: {fileID: 1924995305351906711, guid: 2e1d9202012efc14ca35dd9769a0b350, type: 3}
-  tile: {fileID: 505779185826037507, guid: 111c8061edd6de84ea1e29b400c2bc7f, type: 3}
-  startPoint: {fileID: 505779185826037507, guid: 39081f791a499b04da3215be8a62ebe3, type: 3}
-  exitPoint: {fileID: 505779185826037507, guid: b8aa3f663d4355d4c82c42746458f743, type: 3}
+  tile: {fileID: 505779185826037507, guid: 39081f791a499b04da3215be8a62ebe3, type: 3}
+  mazeTile: {fileID: 505779185826037507, guid: 39081f791a499b04da3215be8a62ebe3, type: 3}
 --- !u!114 &1657391146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,5 +370,4 @@ MonoBehaviour:
   depth: 30
   wall: {fileID: 1924995305351906711, guid: 2e1d9202012efc14ca35dd9769a0b350, type: 3}
   tile: {fileID: 505779185826037507, guid: 111c8061edd6de84ea1e29b400c2bc7f, type: 3}
-  startPoint: {fileID: 505779185826037507, guid: 39081f791a499b04da3215be8a62ebe3, type: 3}
-  exitPoint: {fileID: 505779185826037507, guid: b8aa3f663d4355d4c82c42746458f743, type: 3}
+  mazeTile: {fileID: 505779185826037507, guid: 39081f791a499b04da3215be8a62ebe3, type: 3}

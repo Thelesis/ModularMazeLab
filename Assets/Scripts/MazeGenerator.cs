@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+/// <summary>
+/// Helper class that holds coordinates of map cell
+/// </summary>
 public class MapLocation
 {
     public int x;
@@ -16,6 +19,9 @@ public class MapLocation
     }
 }
 
+/// <summary>
+/// Base class for maze generation algorithms
+/// </summary>
 public class MazeGenerator : MonoBehaviour
 {
     public List<MapLocation> possibleSquareDirecions = new List<MapLocation>() {
@@ -32,8 +38,7 @@ public class MazeGenerator : MonoBehaviour
 
     [SerializeField] GameObject wall;
     [SerializeField] GameObject tile;
-    [SerializeField] GameObject startPoint;
-    [SerializeField] GameObject exitPoint;
+    [SerializeField] GameObject mazeTile;
 
     public byte[,] mapData;
     
@@ -46,6 +51,9 @@ public class MazeGenerator : MonoBehaviour
         DrawMap();
     }
 
+    /// <summary>
+    /// Fill map data wit solid wall
+    /// </summary>
     private void InitialiseMap()
     {
         mapData = new byte[width, depth];
@@ -53,11 +61,14 @@ public class MazeGenerator : MonoBehaviour
         {
             for (int x = 0; x < width; x++)
             {
-                mapData[x, z] = 1; //1 = wall, 0 - corridor
+                mapData[x, z] = 1; //1 = wall, 0 - empty cell
             }
         }
     }
 
+    /// <summary>
+    /// Virtual class to be replaced by potential algorithm
+    /// </summary>
     public virtual void GenerateMap()
     {
         for (int z = 0; z < depth; z++)
@@ -70,42 +81,53 @@ public class MazeGenerator : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Draw every cell in Unity based on provided mapData. Adjust scale based on scale factor (Please keep mapScale as integer value)
+    /// </summary>
     private void DrawMap()
     {
         for (int z = 0; z < depth; z++)
         {
             for (int x = 0; x < width; x++)
             {
-                if(mapData[x, z] == 1)
+                Vector3 pos;
+                switch (mapData[x, z])
                 {
-                    Vector3 pos = new Vector3(x * mapScale, 0, z * mapScale);
-                    Instantiate(wall, pos, Quaternion.identity);
-                    wall.transform.position = pos;
-                    wall.transform.localScale = new Vector3(mapScale, mapScale, mapScale);
-                    wall.name = "[" + x + ", " + z + "]Wall";
-                }
-
-                if(mapData[x, z] == 0)
-                {
-                    Vector3 pos = new Vector3(x * mapScale, 0, z * mapScale);
-                    Instantiate(tile, pos, Quaternion.identity);
-                    tile.transform.position = pos;
-                    tile.transform.localScale = new Vector3(mapScale, mapScale, mapScale);
-                    tile.name = "[" + x + ", " + z + "]Empty";
-                }
-
-                if (mapData[x, z] == 2)
-                {
-                    Vector3 pos = new Vector3(x * mapScale, 0, z * mapScale);
-                    Instantiate(startPoint, pos, Quaternion.identity);
-                    startPoint.transform.position = pos;
-                    startPoint.transform.localScale = new Vector3(mapScale, mapScale, mapScale);
-                    startPoint.name = "[" + x + ", " + z + "]Start";
+                    case 0:
+                        pos = new Vector3(x * mapScale, 0, z * mapScale);
+                        Instantiate(tile, pos, Quaternion.identity);
+                        tile.transform.position = pos;
+                        tile.transform.localScale = new Vector3(mapScale, mapScale, mapScale);
+                        tile.name = "[" + x + ", " + z + "]Empty";
+                        break;
+                    case 1:
+                        pos = new Vector3(x * mapScale, 0, z * mapScale);
+                        Instantiate(wall, pos, Quaternion.identity);
+                        wall.transform.position = pos;
+                        wall.transform.localScale = new Vector3(mapScale, mapScale, mapScale);
+                        wall.name = "[" + x + ", " + z + "]Wall";
+                        break;
+                    case 2:
+                        pos = new Vector3(x * mapScale, 0, z * mapScale);
+                        Instantiate(mazeTile, pos, Quaternion.identity);
+                        mazeTile.transform.position = pos;
+                        mazeTile.transform.localScale = new Vector3(mapScale, mapScale, mapScale);
+                        mazeTile.name = "[" + x + ", " + z + "]Maze";
+                        break;
+                    default:
+                        Console.WriteLine("Tile reference not found! " + mapData[x, z]);
+                        break;
                 }
             }
         }
     }
 
+    /// <summary>
+    /// Check Neighbours for existing corridors - square only
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="z"></param>
+    /// <returns></returns>
     public int CountSquareNeighbours(int x, int z)
     {
         int count = 0;
@@ -129,14 +151,21 @@ public class MazeGenerator : MonoBehaviour
         return count;
     }
 
+    /// <summary>
+    /// Check Neighbours for existing cell type based on provided data - square only
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="z"></param>
+    /// <param name="cellValue">Cell type that needs to be checked</param>
+    /// <returns></returns>
     public int CountSquareNeighbours(int x, int z, int cellValue)
     {
         int count = 0;
-        //if (x <= mapBorderSize || x >= width - mapBorderSize || z <= mapBorderSize || z >= depth - mapBorderSize)
-        //{
-        //    Debug.Log("Exceeding map border");
-        //    return 5;
-        //}
+        if (x <= mapBorderSize || x >= width - mapBorderSize || z <= mapBorderSize || z >= depth - mapBorderSize)
+        {
+            Debug.Log("Exceeding map border");
+            return 5;
+        }
 
         for (int dir = 0; dir < possibleSquareDirecions.Count; dir++)
         {
@@ -152,6 +181,12 @@ public class MazeGenerator : MonoBehaviour
         return count;
     }
 
+    /// <summary>
+    /// Check Neighbours for existing corridors - diagonal only
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="z"></param>
+    /// <returns></returns>
     public int CountDiagonalNeighbours(int x, int z)
     {
         int count = 0;
@@ -173,6 +208,12 @@ public class MazeGenerator : MonoBehaviour
         return count;
     }
 
+    /// <summary>
+    /// Check all Neighbours for existing corridors
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="z"></param>
+    /// <returns></returns>
     public int CountAllNeighbours(int x, int z)
     {
         int count = 0;

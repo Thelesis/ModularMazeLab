@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Prim's maze algorithm implementation. Modified version as it holds neighbouring cells not edges
+/// </summary>
 public class MazePrims : MazeGenerator
 {
     public override void GenerateMap()
@@ -34,6 +37,12 @@ public class MazePrims : MazeGenerator
 
     }
 
+    /// <summary>
+    /// Add cell Neighbours to list. List is used for picking up potential corridor candidates.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="z"></param>
+    /// <param name="walls"></param>
     private void AddSquareNeighbours(int x, int z, ref List<MapLocation> walls)
     {
         walls.Add(new MapLocation(x + 1, z));

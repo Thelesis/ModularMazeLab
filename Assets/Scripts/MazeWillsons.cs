@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Willsons : MazeGenerator
+/// <summary>
+/// Willson's maze algorithm implementation.
+/// </summary>
+public class MazeWillsons : MazeGenerator
 {
 
     List<MapLocation> potentialStarts = new List<MapLocation>();
@@ -24,6 +27,10 @@ public class Willsons : MazeGenerator
         
     }
 
+    /// <summary>
+    /// Get all potential cells that do not have any connections
+    /// </summary>
+    /// <returns></returns>
     private int GetPotentialStarts()
     {
         potentialStarts.Clear();
@@ -41,6 +48,9 @@ public class Willsons : MazeGenerator
         return potentialStarts.Count;
     }
 
+    /// <summary>
+    /// Execute random walk and check if it links to existing maze
+    /// </summary>
     private void RandomWalk()
     {
 
@@ -58,6 +68,10 @@ public class Willsons : MazeGenerator
         while (x > mapBorderSize && x < width - mapBorderSize && z > mapBorderSize && z < depth - mapBorderSize && loopCounter < maxLoopRepetition && !validPath)
         {
             mapData[x, z] = 0;
+            if(CountSquareNeighbours(x, z, 2) > 1)
+            {
+                break;
+            }
             
             int randomDirection = Random.Range(0, possibleSquareDirecions.Count);
             int xCandidate = x + possibleSquareDirecions[randomDirection].x;
