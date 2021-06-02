@@ -310,6 +310,7 @@ GameObject:
   - component: {fileID: 1657391144}
   - component: {fileID: 1657391145}
   - component: {fileID: 1657391146}
+  - component: {fileID: 1657391143}
   m_Layer: 0
   m_Name: MazeGenerator
   m_TagString: Untagged
@@ -317,6 +318,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1657391143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657391142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1765bcc95511fe4fb8a2821cb134e28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLoopRepetition: 4000
+  mapBorderSize: 1
+  mapScale: 6
+  width: 30
+  depth: 30
+  wall: {fileID: 1924995305351906711, guid: 2e1d9202012efc14ca35dd9769a0b350, type: 3}
+  tile: {fileID: 505779185826037507, guid: 111c8061edd6de84ea1e29b400c2bc7f, type: 3}
+  mazeTile: {fileID: 505779185826037507, guid: 39081f791a499b04da3215be8a62ebe3, type: 3}
 --- !u!4 &1657391144
 Transform:
   m_ObjectHideFlags: 0
@@ -358,7 +379,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1657391142}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24f3c83bd7ef4444a94a69c008669d33, type: 3}
   m_Name: 

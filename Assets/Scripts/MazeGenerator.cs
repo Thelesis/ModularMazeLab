@@ -147,7 +147,7 @@ public class MazeGenerator : MonoBehaviour
             }
         }
 
-        Debug.Log("Square count: " + count);
+        //Debug.Log("Square count: " + count);
         return count;
     }
 
