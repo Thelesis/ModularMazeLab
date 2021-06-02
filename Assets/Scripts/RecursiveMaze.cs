@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RecursiveMaze : MazeGenerator
 {
+    int trapChance = 0;
+
     public override void GenerateMap()
     {
         GenerateMap(Random.Range(mapBorderSize, width), Random.Range(mapBorderSize, depth));
@@ -16,7 +18,14 @@ public class RecursiveMaze : MazeGenerator
             return;
         }
 
-        mapData[x, z] = 0;
+        if(mapData[x, z].SetData(0, trapChance))
+        {
+            trapChance = 0;
+        }
+        else
+        {
+            trapChance += trapChanceIncrement;
+        }
 
         possibleSquareDirecions.Shuffle();
         GenerateMap(x + possibleSquareDirecions[0].x, z + possibleSquareDirecions[0].z);

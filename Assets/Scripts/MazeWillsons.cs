@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class MazeWillsons : MazeGenerator
 {
-
+    int trapChance = 0;
     List<MapLocation> potentialStarts = new List<MapLocation>();
 
     public override void GenerateMap()
@@ -16,7 +16,7 @@ public class MazeWillsons : MazeGenerator
         int z = Random.Range(mapBorderSize, depth - mapBorderSize);
 
         Debug.Log("Entry point at location: (" + x + ", " + z + ")");
-        mapData[x, z] = 2;
+        mapData[x, z].SetData(2, trapChance);
 
         int loopCount = 0;
         while(GetPotentialStarts() > 1 && loopCount < maxLoopRepetition)
@@ -67,7 +67,7 @@ public class MazeWillsons : MazeGenerator
         int loopCounter = 0;
         while (x > mapBorderSize && x < width - mapBorderSize && z > mapBorderSize && z < depth - mapBorderSize && loopCounter < maxLoopRepetition && !validPath)
         {
-            mapData[x, z] = 0;
+            mapData[x, z].SetData(0,0);
             if(CountSquareNeighbours(x, z, 2) > 1)
             {
                 break;
@@ -91,13 +91,20 @@ public class MazeWillsons : MazeGenerator
 
         if (validPath)
         {
-            mapData[x, z] = 0;
+            mapData[x, z].SetData(0,0);
             path.Add(new MapLocation(x, z));
             Debug.Log("Path linked to maze corridors");
 
             foreach(MapLocation loc in path)
             {
-                mapData[loc.x, loc.z] = 2;
+                if (mapData[loc.x, loc.z].SetData(2, trapChance))
+                {
+                    trapChance = 0;
+                }
+                else
+                {
+                    trapChance += trapChanceIncrement;
+                }
             }
             path.Clear();
         }
@@ -105,7 +112,7 @@ public class MazeWillsons : MazeGenerator
         {
             foreach(MapLocation loc in path)
             {
-                mapData[loc.x, loc.z] = 1;
+                mapData[loc.x, loc.z].SetData(1,0);
             }
             path.Clear();
         }

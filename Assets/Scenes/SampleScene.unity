@@ -335,9 +335,11 @@ MonoBehaviour:
   mapScale: 6
   width: 30
   depth: 30
+  trapChanceIncrement: 1
   wall: {fileID: 1924995305351906711, guid: 2e1d9202012efc14ca35dd9769a0b350, type: 3}
-  tile: {fileID: 505779185826037507, guid: 111c8061edd6de84ea1e29b400c2bc7f, type: 3}
+  tile: {fileID: 505779185826037507, guid: 39081f791a499b04da3215be8a62ebe3, type: 3}
   mazeTile: {fileID: 505779185826037507, guid: 39081f791a499b04da3215be8a62ebe3, type: 3}
+  trap: {fileID: 505779185826037507, guid: 114e3bd54d6aec5439ff6f6bcf2e9170, type: 3}
 --- !u!4 &1657391144
 Transform:
   m_ObjectHideFlags: 0
@@ -369,9 +371,11 @@ MonoBehaviour:
   mapScale: 6
   width: 30
   depth: 30
+  trapChanceIncrement: 2
   wall: {fileID: 1924995305351906711, guid: 2e1d9202012efc14ca35dd9769a0b350, type: 3}
   tile: {fileID: 505779185826037507, guid: 39081f791a499b04da3215be8a62ebe3, type: 3}
   mazeTile: {fileID: 505779185826037507, guid: 39081f791a499b04da3215be8a62ebe3, type: 3}
+  trap: {fileID: 505779185826037507, guid: 114e3bd54d6aec5439ff6f6bcf2e9170, type: 3}
 --- !u!114 &1657391146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,6 +393,8 @@ MonoBehaviour:
   mapScale: 6
   width: 30
   depth: 30
+  trapChanceIncrement: 2
   wall: {fileID: 1924995305351906711, guid: 2e1d9202012efc14ca35dd9769a0b350, type: 3}
   tile: {fileID: 505779185826037507, guid: 111c8061edd6de84ea1e29b400c2bc7f, type: 3}
   mazeTile: {fileID: 505779185826037507, guid: 39081f791a499b04da3215be8a62ebe3, type: 3}
+  trap: {fileID: 505779185826037507, guid: 114e3bd54d6aec5439ff6f6bcf2e9170, type: 3}
