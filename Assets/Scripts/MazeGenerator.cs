@@ -183,7 +183,7 @@ public class MazeGenerator : MonoBehaviour
         int count = 0;
         if(x <= mapBorderSize || x >= width - mapBorderSize || z <= mapBorderSize || z >= depth - mapBorderSize)
         {
-            Debug.Log("Exceeding map border");
+            Debug.Log("Exceeding map border from point(" + x.ToString() + "," + z.ToString() + ")");
             return 5;
         }
 

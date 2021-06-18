@@ -8,7 +8,7 @@ public class RecursiveMaze : MazeGenerator
 
     public override void GenerateMap()
     {
-        GenerateMap(Random.Range(mapBorderSize, width), Random.Range(mapBorderSize, depth));
+        GenerateMap(Random.Range(mapBorderSize + 1, width - mapBorderSize), Random.Range(mapBorderSize + 1, depth - mapBorderSize));
     }
 
     void GenerateMap(int x, int z)

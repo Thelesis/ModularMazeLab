@@ -331,7 +331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLoopRepetition: 4000
-  mapBorderSize: 1
+  mapBorderSize: 2
   mapScale: 6
   width: 30
   depth: 30
